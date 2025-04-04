@@ -47,14 +47,63 @@
 </p>
 
 </div>
+
 ## ✨ 项目简介
 
 **[FishBlog（点击跳转到博客演示地址）](https://fishblog.yyf040810.cn)** 是一款基于 Spring Boot + Vue.js 的前后端分离博客系统模板，设计优雅、功能齐全。采用 ByteMD 编辑器提供流畅的写作体验，支持 RSS 订阅、邮件提醒、实时聊天室、多种社交平台登录、友情链接管理、看板娘、音乐播放器、自定义鼠标样式等丰富功能。您可以在此基础上进行任意 DIY 定制，快速打造专属于您的个性化博客空间，展示您的创意和知识。
 
 > 💡 完全开源、简单易用、美观大方，随机diy， 让您的博客与众不同！
 
+## 📸 效果展示
+
+<div align="center">
+  <table>
+    <tr>
+      <td>
+        <img src="Resources/网站首页.jpeg" alt="网站首页" width="450">
+        <p align="center">首页 - 精美布局展示最新文章和热门内容</p>
+      </td>
+      <td>
+        <img src="Resources/文章列表.png" alt="文章列表" width="450">
+        <p align="center">文章列表 - 分页展示所有博客文章</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="Resources/文章详情.png" alt="文章详情" width="450">
+        <p align="center">文章详情 - 支持Markdown渲染和代码高亮</p>
+      </td>
+      <td>
+        <img src="Resources/归档页面.png" alt="归档页面" width="450">
+        <p align="center">归档页面 - 按时间线展示所有文章</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="Resources/标签界面.png" alt="标签界面" width="450">
+        <p align="center">标签页面 - 可视化展示文章标签分布</p>
+      </td>
+      <td>
+        <img src="Resources/分类界面.png" alt="分类界面" width="450">
+        <p align="center">分类页面 - 清晰整理不同类别的文章</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="Resources/留言板界面.png" alt="留言板界面" width="450">
+        <p align="center">留言板 - 支持Emoji表情和回复功能</p>
+      </td>
+      <td>
+        <img src="Resources/友链界面.png" alt="友链界面" width="450">
+        <p align="center">友链页面 - 展示和管理友情链接</p>
+      </td>
+    </tr>
+  </table>
+</div>
+
 ## 🔨 技术栈
 
+<div align="center">
 <table>
   <tr>
     <td>
@@ -113,6 +162,7 @@
     </td>
   </tr>
 </table>
+</div>
 
 ## 🎯 功能特性
 
@@ -432,8 +482,3 @@ npm run build
 <div align="center">
   <sub>Built with ❤️ by Yunfeng Yu</sub>
 </div>
-
-
-
-
-
