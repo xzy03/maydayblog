@@ -81,21 +81,31 @@
     <tr>
       <td>
         <img src="Resources/标签界面.png" alt="标签界面" width="450">
-        <p align="center">标签页面 - 可视化展示文章标签分布</p>
+        <p align="center">标签界面 - 可视化展示文章标签分布</p>
       </td>
       <td>
         <img src="Resources/分类界面.png" alt="分类界面" width="450">
-        <p align="center">分类页面 - 清晰整理不同类别的文章</p>
+        <p align="center">分类界面 - 清晰整理不同类别的文章</p>
       </td>
     </tr>
     <tr>
       <td>
         <img src="Resources/留言板界面.png" alt="留言板界面" width="450">
-        <p align="center">留言板 - 支持Emoji表情和回复功能</p>
+        <p align="center">留言板 - 支持Emoji表情和弹幕效果</p>
       </td>
       <td>
         <img src="Resources/友链界面.png" alt="友链界面" width="450">
-        <p align="center">友链页面 - 展示和管理友情链接</p>
+        <p align="center">友链界面 - 展示和管理友情链接</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="Resources/收藏界面.png" alt="收藏界面" width="450">
+        <p align="center">收藏界面 - 展示自己推荐的好用的网站</p>
+      </td>
+      <td>
+        <img src="Resources/登录界面.png" alt="登录界面" width="450">
+        <p align="center">登录界面 - 使用多种登录方式进行登录</p>
       </td>
     </tr>
   </table>
