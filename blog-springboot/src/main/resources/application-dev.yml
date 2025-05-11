@@ -11,7 +11,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-    url: jdbc:mysql://localhost:3306/blog?serverTimezone=GMT%2B8&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3306/blog_temp?serverTimezone=GMT%2B8&allowMultiQueries=true
     username: root # 数据库用户名
     password: 123456 # 数据库密码
     hikari:

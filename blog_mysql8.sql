@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.24, for osx10.9 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.36, for macos14 (arm64)
 --
--- Host: 127.0.0.1    Database: blog
+-- Host: 127.0.0.1    Database: blog_temp
 -- ------------------------------------------------------
 -- Server version	8.0.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -19,13 +19,9 @@
 -- Table structure for table `tb_article`
 --
 
-Drop DATABASE IF EXISTS blog;
-CREATE Database blog;
-use blog;
-
 DROP TABLE IF EXISTS `tb_article`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_article` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL COMMENT '作者',
@@ -62,7 +58,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_article_tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_article_tag` (
   `id` int NOT NULL AUTO_INCREMENT,
   `article_id` int NOT NULL COMMENT '文章id',
@@ -89,7 +85,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_category` (
   `id` int NOT NULL AUTO_INCREMENT,
   `category_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '分类名',
@@ -114,7 +110,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_chat_record`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_chat_record` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` int DEFAULT NULL COMMENT '用户id',
@@ -144,7 +140,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_comment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL COMMENT '评论用户Id',
@@ -177,7 +173,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_favorite`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_favorite` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '收藏ID',
   `name` varchar(100) NOT NULL COMMENT '网站名称',
@@ -209,7 +205,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_favorite_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_favorite_category` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '分类ID',
   `category_name` varchar(50) NOT NULL COMMENT '分类名称',
@@ -237,7 +233,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_favorite_tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_favorite_tag` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '标签ID',
   `favorite_id` int NOT NULL COMMENT '收藏网站ID',
@@ -264,7 +260,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_friend_link`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_friend_link` (
   `id` int NOT NULL AUTO_INCREMENT,
   `link_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '链接名',
@@ -293,7 +289,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_menu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_menu` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '菜单名',
@@ -326,7 +322,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_message`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_message` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `ip_address` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户ip',
@@ -356,10 +352,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_notice`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_notice` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '公告ID',
-  `content` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公告内容',
+  `content` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公告内容',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -382,7 +378,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_operation_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_operation_log` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `opt_module` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '操作模块',
@@ -417,7 +413,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_resource`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_resource` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `resource_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '资源名',
@@ -448,7 +444,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_role` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `role_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '角色名',
@@ -476,7 +472,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_role_menu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_role_menu` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role_id` int DEFAULT NULL COMMENT '角色id',
@@ -501,7 +497,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_role_resource`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_role_resource` (
   `id` int NOT NULL AUTO_INCREMENT,
   `role_id` int DEFAULT NULL COMMENT '角色id',
@@ -526,7 +522,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_tag` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tag_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标签名',
@@ -551,13 +547,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_unique_view`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_unique_view` (
   `id` int NOT NULL AUTO_INCREMENT,
   `create_time` datetime NOT NULL COMMENT '时间',
   `views_count` int NOT NULL COMMENT '访问量',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=229 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=232 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -566,7 +562,7 @@ CREATE TABLE `tb_unique_view` (
 
 LOCK TABLES `tb_unique_view` WRITE;
 /*!40000 ALTER TABLE `tb_unique_view` DISABLE KEYS */;
-INSERT INTO `tb_unique_view` VALUES (223,'2025-03-25 00:00:01',0),(224,'2025-03-26 03:40:28',3),(225,'2025-03-27 00:00:00',3),(226,'2025-03-28 00:00:00',2),(227,'2025-03-30 00:00:01',2),(228,'2025-03-31 00:00:00',3);
+INSERT INTO `tb_unique_view` VALUES (223,'2025-03-25 00:00:01',0),(224,'2025-03-26 03:40:28',3),(225,'2025-03-27 00:00:00',3),(226,'2025-03-28 00:00:00',2),(227,'2025-03-30 00:00:01',2),(228,'2025-03-31 00:00:00',3),(229,'2025-04-23 09:59:08',2),(230,'2025-04-24 10:10:01',0),(231,'2025-04-25 04:13:37',0);
 /*!40000 ALTER TABLE `tb_unique_view` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -576,7 +572,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_user_auth`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_user_auth` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_info_id` int NOT NULL COMMENT '用户信息id',
@@ -598,7 +594,7 @@ CREATE TABLE `tb_user_auth` (
 
 LOCK TABLES `tb_user_auth` WRITE;
 /*!40000 ALTER TABLE `tb_user_auth` DISABLE KEYS */;
-INSERT INTO `tb_user_auth` VALUES (1,1,'15967777744@163.com','$2a$10$FKhj8Hv638OZxthl02QPa.gGgXNqpkxYRcXXBJPITQybiWLcSp8h2',0,'127.0.0.1','','2025-03-26 00:48:31','2025-04-01 16:42:19'),(201,2,'15967777744@qq.com','$2a$10$hha62NjZl8txqHpWsTLBM.fbBIpxPV1SgGVtBeLVIGqfJXEHyWzbS',0,'127.0.0.1','','2025-03-29 11:48:33',NULL),(202,5,'15967777744','$2a$10$oAOdqV.SE95ugZUZ5KQZMu2wF1gxJXE4e0qIgqTWd4q/FSw/HpUuK',3,'127.0.0.1','','2025-03-29 17:10:08','2025-04-01 16:42:40'),(203,6,'15967777777','$2a$10$W1FI8tFJDl1SaZK1SIfGF.O4oWgn4HPHqA4GxcVtJxsdsDvRmqyM2',3,'127.0.0.1','','2025-03-29 17:13:30','2025-03-29 17:16:23'),(204,7,'15967777744@gmail.com','$2a$10$62QgZJ0XxCGutnm3nX7Wku8atlz5A9mjjF3VFrGkPIG5EusyR9QoS',0,'127.0.0.1','','2025-03-29 22:54:20','2025-03-29 22:54:20');
+INSERT INTO `tb_user_auth` VALUES (1,1,'15967777744@163.com','$2a$10$FKhj8Hv638OZxthl02QPa.gGgXNqpkxYRcXXBJPITQybiWLcSp8h2',0,'127.0.0.1','','2025-03-26 00:48:31','2025-04-01 16:42:19'),(201,2,'15967777744@qq.com','$2a$10$hha62NjZl8txqHpWsTLBM.fbBIpxPV1SgGVtBeLVIGqfJXEHyWzbS',0,'127.0.0.1','','2025-03-29 11:48:33','2025-05-11 19:35:09'),(202,5,'15967777744','$2a$10$oAOdqV.SE95ugZUZ5KQZMu2wF1gxJXE4e0qIgqTWd4q/FSw/HpUuK',3,'127.0.0.1','','2025-03-29 17:10:08','2025-04-01 16:42:40'),(203,6,'15967777777','$2a$10$W1FI8tFJDl1SaZK1SIfGF.O4oWgn4HPHqA4GxcVtJxsdsDvRmqyM2',3,'127.0.0.1','','2025-03-29 17:13:30','2025-03-29 17:16:23'),(204,7,'15967777744@gmail.com','$2a$10$62QgZJ0XxCGutnm3nX7Wku8atlz5A9mjjF3VFrGkPIG5EusyR9QoS',0,'127.0.0.1','','2025-03-29 22:54:20','2025-03-29 22:54:20');
 /*!40000 ALTER TABLE `tb_user_auth` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -608,7 +604,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_user_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_user_info` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '邮箱号',
@@ -642,7 +638,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tb_user_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_user_role` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL COMMENT '用户id',
@@ -670,4 +666,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-04 14:53:12
+-- Dump completed on 2025-05-11 19:35:42

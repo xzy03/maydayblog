@@ -245,7 +245,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
         // 新增用户账号
         UserAuth userAuth = UserAuth.builder()
                 .userInfoId(userInfo.getId())
-                .username(user.getUsername())
+                .username(user.getUsername())// $2a$10$FKhj8Hv638OZxthl02QPa.gGgXNqpkxYRcXXBJPITQybiWLcSp8h2
                 .password(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()))
                 .createTime(new Date())
                 // 根据类型设置登录类型
