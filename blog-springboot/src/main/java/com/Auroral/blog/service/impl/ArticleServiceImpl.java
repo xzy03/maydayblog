@@ -46,6 +46,8 @@ import org.elasticsearch.client.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.data.elasticsearch.core.IndexOperations;
+import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 /**
  * @author Auroral
  * @since 2020-05-18
@@ -68,8 +70,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
     private HttpSession session;
     @Autowired
     private RedisTemplate redisTemplate;
-    @Autowired
-    private ArticleService articleService;
+//    @Autowired
+//    private ArticleService articleService;
     @Autowired
     private ArticleTagService articleTagService;
 
@@ -293,7 +295,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
                 .isDraft(articleVO.getIsDraft())
                 .build();
         
-        articleService.saveOrUpdate(article);
+        this.saveOrUpdate(article);
         
         // 编辑文章则删除文章所有标签
         if (Objects.nonNull(articleVO.getId()) && articleVO.getIsDraft().equals(FALSE)) {
@@ -385,10 +387,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
                         }).collect(Collectors.toList());
 
                 // 清除现有索引中的所有数据
-                elasticsearchRestTemplate.deleteIndex(ArticleSearchDTO.class);
-                elasticsearchRestTemplate.createIndex(ArticleSearchDTO.class);
-                elasticsearchRestTemplate.putMapping(ArticleSearchDTO.class);
-                
+//                elasticsearchRestTemplate.deleteIndex(ArticleSearchDTO.class);
+//                elasticsearchRestTemplate.createIndex(ArticleSearchDTO.class);
+//                elasticsearchRestTemplate.putMapping(ArticleSearchDTO.class);
+                IndexOperations indexOperations = elasticsearchRestTemplate.indexOps(ArticleSearchDTO.class);
+                indexOperations.delete();
+                indexOperations.create();
+                indexOperations.putMapping(indexOperations.createMapping());
                 // 保存新数据
                 elasticsearchRestTemplate.save(articleSearchDTOList);
             }
@@ -429,7 +434,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
                 .isDelete(deleteVO.getIsDelete())
                 .build())
                 .collect(Collectors.toList());
-        articleService.updateBatchById(articleList);
+        this.updateBatchById(articleList);
         // 同步ES中的文章状态
         try {
             for (Integer articleId : deleteVO.getIdList()) {

@@ -34,7 +34,8 @@
       style="position:fixed;left:0;top:0;z-index:99999999;pointer-events:none;"
     ></canvas>
     <!-- 全局加载遮罩 -->
-    <loading-overlay 
+    <!-- 使用 LoadingOverlay 组件,$store.state.loading.isLoading这句话的含义是模块loading中的state中的isLoading -->
+    <loading-overlay
       :visible="$store.state.loading.isLoading"
       :message="$store.state.loading.loadingMessage" 
     />

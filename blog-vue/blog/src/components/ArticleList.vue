@@ -246,8 +246,14 @@ export default {
 .tag-wrapper {
   padding: 10px 15px 10px 18px;
 }
+/* 默认颜色 */
 .tag-wrapper a {
   color: #fff !important;
+  transition: color 0.3s ease; /* 平滑过渡 */
+}
+/* 鼠标悬停变色 */
+.tag-wrapper a:hover {
+  color: #49b1f5 !important; /* 可改为你喜欢的颜色 */
 }
 .tag-btn {
   display: inline-block;

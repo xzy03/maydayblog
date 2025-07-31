@@ -14,6 +14,7 @@ import OauthLogin from "../components/OauthLogin.vue";
 import AIAgent from '../views/ai/AIAgent.vue'
 import Favorites from '../views/favorites/Favorites.vue'
 import store from '../store';
+import NProgress from "nprogress";
 
 Vue.use(VueRouter);
 
@@ -22,7 +23,7 @@ const routes = [
     path: "/",
     component: () => import('../views/home/Home.vue'),
     meta: {
-      title: "Auroral的个人博客"
+      title: "Mayond的个人博客"
     }
   },
   {
@@ -51,8 +52,10 @@ const routes = [
     }
   },
   {
-    path: "/categories/*",
-    component: () => import('../components/ArticleList.vue')
+    path: "/categories/:categoryId",
+    name: "CategoryArticles",
+    component: () => import('../components/ArticleList.vue'),
+    meta: { title: "分类文章" }
   },
   {
     path: "/links",
@@ -103,7 +106,7 @@ const routes = [
     name: 'AIAssistant',
     component: () => import('../views/ai/AIAgent.vue'),
     meta: {
-      title: 'AI智能助手 - Auroral'
+      title: 'AI智能助手 - Mayond'
     }
   },
   {
@@ -125,6 +128,10 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // 显示加载遮罩
   store.dispatch('showLoading', '页面加载中...');
+  NProgress.start();
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  }
   next();
 });
 
@@ -134,6 +141,11 @@ router.afterEach(() => {
   setTimeout(() => {
     store.dispatch('hideLoading');
   }, 300);
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
+  });
+  NProgress.done();
 });
 
 export default router;

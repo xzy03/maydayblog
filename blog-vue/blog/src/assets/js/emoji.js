@@ -1,3 +1,6 @@
+// 这个文件是一个 JavaScript 模块，导出了一个对象，该对象包含了一系列表情符号的名称和对应的图片 URL。
+// 每个表情符号的名称是一个字符串，格式为 "[表情名称]"，对应的值是一个图片的 URL 地址。
+//这个export default 语句允许其他模块导入这个对象，以便在应用程序中使用这些表情符号。
 export default {
   "[微笑]": new URL("../img/emojis/smile.png", import.meta.url).href,
 

@@ -4,7 +4,7 @@
       <v-card class="ai-agent-card">
         <v-card-title class="ai-title">
           <v-icon large color="primary" class="mr-2">mdi-robot</v-icon>
-          Auroral 智能助手
+          Mayond 智能助手
         </v-card-title>
         
         <v-card-subtitle class="ai-subtitle">
@@ -108,7 +108,7 @@ export default {
     }
   },
   mounted() {
-    this.addAgentMessage('您好！我是Auroral的智能助手，有什么我可以帮助您的吗？');
+    this.addAgentMessage('您好！我是Mayond的智能助手，有什么我可以帮助您的吗？');
   },
   methods: {
     sendMessage() {
@@ -142,13 +142,13 @@ export default {
       if (query.includes('功能')) {
         response = '本网站主要功能包括：\n\n• 文章阅读\n• 分类与标签管理\n• 评论与互动\n• 个人中心\n• 友情链接';
       } else if (query.includes('联系') || query.includes('骚扰') || query.includes('找博主') || query.includes('微信') || query.includes('QQ') || query.includes('二维码')) {
-        response = `您可以通过以下方式联系博主：\n\n• QQ：1957689514\n• 邮箱：15968588744@163.com\n• GitHub：https://github.com/Auroral0810\n\n**扫描二维码添加好友：**\n\n<div class="qrcode-grid">
+        response = `您可以通过以下方式联系博主：\n\n• QQ：3514196292\n• 邮箱：173645636@163.com\n• GitHub：https://github.com/xzy03\n\n**扫描二维码添加好友：**\n\n<div class="qrcode-grid">
           <div class="qrcode-item">
-            <img src="${require('@/assets/img/wechat.png')}" alt="微信二维码" class="contact-qrcode"/>
+            <img src="${require('@/assets/img/mywechat.jpg')}" alt="微信二维码" class="contact-qrcode"/>
             <div class="qrcode-label">微信</div>
           </div>
           <div class="qrcode-item">
-            <img src="${require('@/assets/img/alipay.png')}" alt="QQ二维码" class="contact-qrcode"/>
+            <img src="${require('@/assets/img/myQQ.jpg')}" alt="QQ二维码" class="contact-qrcode"/>
             <div class="qrcode-label">QQ</div>
           </div>
         </div>\n\n博主很乐意收到您的留言和建议！`;
@@ -157,7 +157,7 @@ export default {
       } else if (query.includes('忘记密码')) {
         response = '如果忘记密码，可以：\n\n1. 点击登录页面的"忘记密码"\n2. 输入您的注册邮箱或者手机号\n3. 获取验证码\n4. 设置新密码';
       } else {
-        response = '感谢您的提问！我是Auroral的智能助手，目前仍在学习中。您可以询问关于网站功能、联系博主、账户管理等方面的问题，我会尽力提供帮助。';
+        response = '感谢您的提问！我是Mayond的智能助手，目前仍在学习中。您可以询问关于网站功能、联系博主、账户管理等方面的问题，我会尽力提供帮助。';
       }
       
       this.addAgentMessage(response);

@@ -63,7 +63,7 @@ public class BlogInfoServiceImpl implements BlogInfoService {
         String viewsCount = Objects.requireNonNull(redisTemplate.boundValueOps(BLOG_VIEWS_COUNT).get()).toString();
         // 查询公告（兼容旧代码）
         Object value = redisTemplate.boundValueOps(NOTICE).get();
-        String notice = Objects.nonNull(value) ? value.toString() : "去无人的岛 摸鲨鱼的角.";
+        String notice = Objects.nonNull(value) ? value.toString() : "一阵风吹来 风筝飞上天空.";
 
         // 获取最新的5条公告
         List<NoticeDTO> notices = noticeService.listLatestNotices(5);

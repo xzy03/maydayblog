@@ -5,6 +5,7 @@
       <div class="article-info-container">
         <!-- 文章标题 -->
         <div class="article-title">{{ article.articleTitle }}</div>
+        <!-- 文章概括 -->
         <div class="article-info">
           <div class="first-line">
             <!-- 发表时间 -->
@@ -13,7 +14,7 @@
               发表于 {{ article.createTime | date }}
             </span>
             <span class="separator">|</span>
-            <!-- 发表时间 -->
+            <!-- 更新时间 -->
             <span>
               <i class="iconfont icongengxinshijian" />
               更新于
@@ -65,273 +66,202 @@
     </div>
     <!-- 内容 -->
     <v-row class="article-container">
-        <!-- 侧边功能 -->
-        <v-col md="3" cols="12" class="d-md-block d-none">
-          <div style="position: sticky;top: 20px;">
-            <!-- 文章目录 -->
-            <v-card class="right-container toc-card">
-              <div class="toc-tabs">
-                <div
+      <!-- 侧边功能 -->
+      <v-col md="3" cols="12" class="d-md-block d-none">
+        <div style="position: sticky;top: 20px;">
+          <v-card class="right-container toc-card">
+            <!-- 侧边标题 -->
+            <div class="toc-tabs">
+              <div
                   class="tab-item"
                   :class="{ active: activeTab === 'toc' }"
                   @click="activeTab = 'toc'"
-                >
-                  文章目录
-                </div>
-                <div
+              >
+                文章目录
+              </div>
+              <div
                   class="tab-item"
                   :class="{ active: activeTab === 'overview' }"
                   @click="activeTab = 'overview'"
-                >
-                  站点概览
-                </div>
+              >
+                站点概览
               </div>
-  
-              <!-- 目录部分 -->
-              <div v-show="activeTab === 'toc'" class="toc-content">
-                <div class="catalog-list">
-                  <template v-for="(item, index) in processedTocItems">
-                    <div 
-                      :key="index"
-                      class="toc-item-wrapper"
-                    >
-                      <div
-                        class="toc-item"
-                        :class="[
-                          `toc-level-${item.level}`,
-                          { 
-                            'active': currentIndex === item.index,
-                            'has-children': item.hasChildren,
-                            'expanded': isExpanded(item)
-                          }
-                        ]"
-                        @click="handleTocItemClick(item)"
-                      >
-                        <span class="toc-arrow" v-if="item.hasChildren">
-                          {{ isExpanded(item) ? '▼' : '▶' }}
-                        </span>
-                        {{ item.text }}
-                      </div>
-                      
-                      <!-- 递归渲染子项目 -->
-                      <div 
-                        v-if="item.hasChildren" 
-                        class="toc-children"
-                        :class="{ 'expanded': isExpanded(item) }"
-                      >
-                        <template v-for="(child, childIndex) in item.children">
-                          <div 
-                            :key="childIndex"
-                            class="toc-item-wrapper"
-                          >
-                            <div
-                              class="toc-item"
-                              :class="[
-                                `toc-level-${child.level}`,
-                                { 
-                                  'active': currentIndex === child.index,
-                                  'has-children': child.hasChildren,
-                                  'expanded': isExpanded(child)
-                                }
-                              ]"
-                              @click="handleTocItemClick(child)"
-                            >
-                              <span class="toc-arrow" v-if="child.hasChildren">
-                                {{ isExpanded(child) ? '▼' : '▶' }}
-                              </span>
-                              {{ child.text }}
-                            </div>
-                            
-                            <!-- 递归渲染更深层级 -->
-                            <div 
-                              v-if="child.hasChildren" 
-                              class="toc-children"
-                              :class="{ 'expanded': isExpanded(child) }"
-                            >
-                              <template v-for="(grandChild, grandChildIndex) in child.children">
-                                <!-- 继续递归... -->
-                                <div 
-                                  :key="grandChildIndex"
-                                  class="toc-item"
-                                  :class="[
-                                    `toc-level-${grandChild.level}`,
-                                    { 'active': currentIndex === grandChild.index }
-                                  ]"
-                                  @click.stop="scrollToHeading(grandChild.id)"
-                                >
-                                  {{ grandChild.text }}
-                                </div>
-                              </template>
-                            </div>
-                          </div>
-                        </template>
-                      </div>
-                    </div>
-                  </template>
-                </div>
+            </div>
+
+            <!-- 选择文章目录 -->
+            <div v-show="activeTab === 'toc'" class="toc-content">
+              <div class="catalog-list">
+                <template>
+                  <div class="catalog-list">
+                    <TocItem
+                        v-for="(item, index) in processedTocItems"
+                        :key="index"
+                        :item="item"
+                        :currentIndex="currentIndex"
+                        :isExpanded="isExpanded"
+                        :handleTocItemClick="handleTocItemClick"
+                        :scrollToHeading="scrollToHeading"
+                    />
+                  </div>
+                </template>
               </div>
-  
-              <!-- 站点概览内容 -->
-              <div v-show="activeTab === 'overview'" class="site-overview">
-                <div class="site-author">
-                  <img
+            </div>
+
+            <!-- 选择站点概览内容 -->
+            <div v-show="activeTab === 'overview'" class="site-overview">
+              <!-- 基本信息 -->
+              <div class="site-author">
+                <img
                     class="author-avatar"
                     :src="$store.state.blogInfo.avatar || '../../assets/img/Robot.png'"
                     alt="作者头像"
-                  />
-                  <div class="author-name">
-                    {{ $store.state.blogInfo.nickname || "Li Zhiyuan" }}
-                  </div>
-                  <div class="author-description">
-                    {{ $store.state.blogInfo.intro || "程序，搞起来很轻松的，就是头冷" }}
-                  </div>
+                />
+                <div class="author-name">
+                  {{ $store.state.blogInfo.nickname || "Xiao Xiang" }}
                 </div>
-  
-                <div class="site-state">
-                  <div class="site-state-item">
-                    <router-link to="/archives">
-                      <div class="state-num">
-                        {{ $store.state.blogInfo.articleCount || "41" }}
-                      </div>
-                      <div class="state-name">日志</div>
-                    </router-link>
-                  </div>
-                  <div class="site-state-item">
-                    <router-link to="/categories">
-                      <div class="state-num">
-                        {{ $store.state.blogInfo.categoryCount || "10" }}
-                      </div>
-                      <div class="state-name">分类</div>
-                    </router-link>
-                  </div>
-                  <div class="site-state-item">
-                    <router-link to="/tags">
-                      <div class="state-num">
-                        {{ $store.state.blogInfo.tagCount || "22" }}
-                      </div>
-                      <div class="state-name">标签</div>
-                    </router-link>
-                  </div>
+                <div class="author-description">
+                  {{ $store.state.blogInfo.intro || "程序，搞起来很轻松的，就是头冷" }}
                 </div>
-  
-                <div class="site-social">
-                  <a
-                    href="https://github.com/Auroral0810"
-                    target="_blank"
-                    class="social-item"
-                  >
-                    <i class="iconfont icongithub"></i> GitHub
-                  </a>
-                  <a href="mailto:15968588744@163.com" class="social-item">
-                    <i class="mdi mdi-email"></i> E-Mail
-                  </a>
-                  <a
-                    href="https://weibo.com/u/7862016551"
-                    target="_blank"
-                    class="social-item"
-                  >
-                    <i class="iconfont iconweibo"></i> 微博
-                  </a>
-                  <a
-                    href="https://zhihu.com/people/Auroral-57-94"
-                    target="_blank"
-                    class="social-item"
-                  >
-                    <i class="mdi mdi-earth"></i> 知乎
-                  </a>
-                  <a
-                    href="https://gitee.com/Luck_ff0810"
-                    target="_blank"
-                    class="social-item"
-                  >
-                    <i class="iconfont icongitee-fill-round"></i> Gitee
-                  </a>
-                  <a
-                    href="https://music.163.com/#/user/home?id=563040726"
-                    target="_blank"
-                    class="social-item"
-                  >
-                    <i class="mdi mdi-music"></i> 网易云
-                  </a>
+              </div>
+              <!-- 博客状态 -->
+              <div class="site-state">
+                <div class="site-state-item">
+                  <router-link to="/archives">
+                    <div class="state-num">
+                      {{ $store.state.blogInfo.articleCount || "41" }}
+                    </div>
+                    <div class="state-name">日志</div>
+                  </router-link>
                 </div>
-  
-                <div class="site-cc">
-                  <!-- CC许可证 -->
-                  <a
+                <div class="site-state-item">
+                  <router-link to="/categories">
+                    <div class="state-num">
+                      {{ $store.state.blogInfo.categoryCount || "10" }}
+                    </div>
+                    <div class="state-name">分类</div>
+                  </router-link>
+                </div>
+                <div class="site-state-item">
+                  <router-link to="/tags">
+                    <div class="state-num">
+                      {{ $store.state.blogInfo.tagCount || "22" }}
+                    </div>
+                    <div class="state-name">标签</div>
+                  </router-link>
+                </div>
+              </div>
+              <!-- 社交链接和版权信息 -->
+              <div class="site-social">
+                <a
+                    href="https://github.com/xzy03"
+                    target="_blank"
+                    class="social-item"
+                >
+                  <i class="iconfont icongithub"></i> GitHub
+                </a>
+                <a href="mailto:17364563687@163.com" class="social-item">
+                  <i class="mdi mdi-email"></i> E-Mail
+                </a>
+                <a
+                    href="https://weibo.com/u/7808692733"
+                    target="_blank"
+                    class="social-item"
+                >
+                  <i class="iconfont iconweibo"></i> 微博
+                </a>
+                <a
+                    href="https://www.zhihu.com/people/7-37-11-70"
+                    target="_blank"
+                    class="social-item"
+                >
+                  <i class="mdi mdi-earth"></i> 知乎
+                </a>
+                <a
+                    href="https://gitee.com/Not_Found_404_114514"
+                    target="_blank"
+                    class="social-item"
+                >
+                  <i class="iconfont icongitee-fill-round"></i> Gitee
+                </a>
+                <a
+                    href="https://music.163.com/#/my/m/music/playlist?id=7663433696"
+                    target="_blank"
+                    class="social-item"
+                >
+                  <i class="mdi mdi-music"></i> 网易云
+                </a>
+              </div>
+
+              <div class="site-cc">
+                <!-- CC许可证 -->
+                <a
                     href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
                     target="_blank"
                     class="license-icon"
-                  >
-                    <img
+                >
+                  <img
                       src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"
                       alt="CC BY-NC-SA 4.0"
-                    />
-                  </a>
-                  <!-- RSS订阅图标 -->
-                  <a
+                  />
+                </a>
+                <!-- RSS订阅图标 -->
+                <a
                     href="/api/rss"
                     target="_blank"
                     class="rss-icon"
                     title="RSS订阅"
-                  >
-                    <img
+                >
+                  <img
                       src="@/assets/img/rss.png"
                       alt="RSS Feed"
                       style="height: 31px;"
-                    />
-                  </a>
-                </div>
-  
-                <div class="site-friends">
+                  />
+                </a>
+              </div>
+
+              <div class="site-friends">
+                <router-link to="/links">
                   <div class="friends-title">
                     <a href="javascript:;" class="friends-link-title">
                       <i class="mdi mdi-link-variant"></i> 友情链接
                     </a>
                   </div>
-                  <div class="friends-links">
-                    <a
-                      href="https://music.163.com/#/user/home?id=563040726"
-                      target="_blank"
-                      class="friend-link"
-                    >
-                      <span class="emoji">😊</span> 网易云音乐
-                      <span class="emoji">😊</span>
-                    </a>
-                  </div>
-                </div>
+                </router-link>
               </div>
-  
-              <!-- 添加回到顶部彩带 -->
-              <back-to-top inSidebar />
-            </v-card>
-            <!-- 最新文章 -->
-            <v-card class="right-container" style="margin-top:20px">
-              <div class="right-title">
-                <i class="iconfont icongengxinshijian" style="font-size:16.8px" />
-                <span style="margin-left:10px">最新文章</span>
-              </div>
-              <div class="article-list">
-                <div
+            </div>
+
+            <!-- 添加回到顶部彩带 -->
+            <back-to-top inSidebar/>
+          </v-card>
+          <!-- 最新文章 -->
+          <v-card class="right-container" style="margin-top:20px">
+            <div class="right-title">
+              <i class="iconfont icongengxinshijian" style="font-size:16.8px"/>
+              <span style="margin-left:10px">最新文章</span>
+            </div>
+            <div class="article-list">
+              <div
                   class="article-item"
                   v-for="item of articleLatestList"
                   :key="item.id"
-                >
-                  <router-link :to="'/articles/' + item.id" class="content-cover">
-                    <img :src="item.articleCover" />
-                  </router-link>
-                  <div class="content">
-                    <div class="content-title">
-                      <router-link :to="'/articles/' + item.id">
-                        {{ item.articleTitle }}
-                      </router-link>
-                    </div>
-                    <div class="content-time">{{ item.createTime | date }}</div>
+              >
+                <router-link :to="'/articles/' + item.id" class="content-cover">
+                  <img :src="item.articleCover"/>
+                </router-link>
+                <div class="content">
+                  <div class="content-title">
+                    <router-link :to="'/articles/' + item.id">
+                      {{ item.articleTitle }}
+                    </router-link>
                   </div>
+                  <div class="content-time">{{ item.createTime | date }}</div>
                 </div>
               </div>
-            </v-card>
-          </div>
-        </v-col>
+            </div>
+          </v-card>
+        </div>
+      </v-col>
+      <!-- 文章内容 -->
       <v-col md="9" cols="12">
         <v-card class="article-wrapper">
           <!-- 使用 ByteMD Viewer 组件替换原来的文章内容渲染 -->
@@ -360,10 +290,12 @@
             </div>
             <div class="reward-qrcode" v-show="showReward">
               <div class="qrcode-item">
-                <img src="../../assets/img/wechat.png" alt="微信支付" />
+                <img src="../../assets/img/mywechatpay.png" alt="微信支付" />
+                <div class="state-name">微信</div>
               </div>
               <div class="qrcode-item">
-                <img src="../../assets/img/alipay.png" alt="支付宝" />
+                <img src="../../assets/img/myalipay.jpg" alt="支付宝" />
+                <div class="state-name">支付宝</div>
               </div>
             </div>
           </div>
@@ -372,7 +304,7 @@
           <div class="aritcle-copyright">
             <div>
               <span>本文作者：</span>
-              <a href="https://your-domain.com" target="_blank"> Your Name</a>
+              <a href="https://your-domain.com" target="_blank"> Mayond</a>
             </div>
             <div>
               <span>本文链接：</span>
@@ -816,6 +748,7 @@ import 'github-markdown-css/github-markdown.css'
 
 import Comment from "../../components/Comment"
 import BackToTop from "../../components/BackToTop"
+import TocItem from "@/components/TocItem.vue";
 
 export default {
   name: 'Article',
@@ -823,6 +756,7 @@ export default {
     Viewer,
     Comment,
     BackToTop,
+    TocItem,
   },
   mounted() {
     this.fetchArticle();
@@ -874,7 +808,7 @@ export default {
     });
     
     // 初始化检查当前主题并适配 Mermaid
-          this.$nextTick(() => {
+    this.$nextTick(() => {
       this.checkAndApplyMermaidTheme();
     });
     
@@ -911,128 +845,150 @@ export default {
   },
   data: function() {
     return {
+      // 配置 ByteMD 编辑器使用的插件及其样式
       plugins: [
+        // Mermaid 图表支持
         mermaid({
-          theme: 'default'
+          theme: 'default' // 使用默认主题
         }),
+        // 代码高亮插件
         highlight({
-          theme: 'github-dark',
-          ignore: ['mermaid']
+          theme: 'github-dark', // 使用 GitHub 深色主题
+          ignore: ['mermaid'] // 忽略 mermaid 代码块的高亮（由 mermaid 插件处理）
         }),
+        // GitHub 风格的 Markdown 扩展（GFM）
         gfm({
-          // 添加 GFM 主题配置
           style: {
-            dark: true // 启用深色主题
+            dark: true // 启用深色主题样式
           }
         }),
+        // Frontmatter 支持（用于处理文章元信息）
         frontmatter(),
+        // Emoji 表情支持
         gemoji(),
+        // 数学公式支持
         math({
-          katexOptions: { throwOnError: false }
+          katexOptions: { throwOnError: false } // 不在 KaTeX 解析错误时抛出异常
         }),
+        // 图片缩放支持
         mediumZoom()
       ],
+      // 存储文章中的图片列表
       imgList: [],
+      // 文章对象，包含文章相关信息
       article: {
+        // 下一篇文章信息
         nextArticle: {
           id: 0,
           articleCover: ""
         },
+        // 上一篇文章信息
         lastArticle: {
           id: 0,
           articleCover: ""
         },
+        // 推荐文章列表
         articleRecommendList: []
       },
+      // 最新文章列表
       articleLatestList: [],
+      // 评论列表
       commentList: [],
+      // 评论数量
       count: 0,
+      // 文章字数统计
       wordNum: "",
+      // 阅读时间估算
       readTime: "",
+      // 当前文章分享链接
       articleHref: this.generateShareUrl(),
+      // 剪贴板对象（用于复制操作）
       clipboard: null,
+      // 是否显示打赏区域
       showReward: false,
+      // 是否显示分享菜单
       showShare: false,
+      // 是否显示微信分享对话框
       showWechatDialog: false,
+      // 是否显示QQ分享对话框
       showQQDialog: false,
+      // 当前激活的标签页（用于目录等）
       activeTab: "toc",
+      // 运行时间字符串
       time: "",
+      // 定时器引用
       timer: null,
+      // 目录项列表
       tocItems: [],
+      // 当前激活的目录项索引
       currentIndex: null,
+      // 存储展开的目录项
       expandedItems: new Set(), // 存储展开的目录项
+      // 通知提示框状态
       snackbar: false,
+      // 通知提示框文字
       snackbarText: '',
+      // 通知提示框颜色
       snackbarColor: 'success',
+      // 是否显示小红书分享对话框
       showRedbookDialog: false,
     };
   },
   methods: {
-    async fetchArticle() {
-      try {
-        console.log('开始获取文章...')
-        const { data } = await this.axios.get("/api" + this.$route.path)
-        console.log('获取到的文章数据:', data)
-        
-        if (data.flag && data.data) {
-          document.title = data.data.articleTitle
-          this.article = data.data
-          // 移除调试用的 p 标签显示
-          console.log('文章内容:', this.article.articleContent)
-          
-          // 生成目录
-          this.$nextTick(() => {
-            this.generateToc()
-          })
-          
-          // 文章加载后更新分享链接
-          this.$nextTick(() => {
-            this.updateShareUrl();
-          });
-        } else {
-          console.error('获取文章失败:', data.msg)
-          this.$toast.error('获取文章失败')
-        }
-      } catch (error) {
-        console.error('获取文章失败:', error)
-        this.$toast.error('获取文章失败')
-      }
-    },
+
     listComment() {
+      // 获取当前路由路径，例如 "/articles/123"
       const path = this.$route.path;
+
+      // 用斜杠 / 分割路径，得到一个数组，例如 ["", "articles", "123"]
       const arr = path.split("/");
+
+      // 获取数组最后一个元素作为文章 ID，例如 "123"
       const articleId = arr[arr.length - 1];
+
+      // 使用 axios 向后端请求评论数据
       this.axios
-        .get("/api/comments", {
-          params: { current: 1, articleId: articleId }
-        })
-        .then(({ data }) => {
-          this.commentList = data.data.recordList;
-          this.count = data.data.count;
-        });
+          .get("/api/comments", {
+            // 将当前页码（1）和文章 ID 作为参数传递
+            params: { current: 1, articleId: articleId }
+          })
+          .then(({ data }) => {
+            // 请求成功后，将评论列表保存到组件的响应式属性 commentList
+            this.commentList = data.data.recordList;
+            // 同时保存评论总数，用于分页等功能
+            this.count = data.data.count;
+          });
     },
+
     listNewestArticles() {
       this.axios.get("/api/articles/newest").then(({ data }) => {
         this.articleLatestList = data.data;
       });
     },
+
     like() {
-      // 判断登录
+      // 判断用户是否登录，未登录则弹出登录框
       if (!this.$store.state.userId) {
         this.$store.state.loginFlag = true;
         return false;
       }
-      //发送请求
+
+      // 创建请求参数并发送点赞请求
       let param = new URLSearchParams();
       param.append("articleId", this.article.id);
+
       this.axios.post("/api/articles/like", param).then(({ data }) => {
         if (data.flag) {
-          //判断是否点赞
+          // 判断当前文章是否已点赞
           if (this.$store.state.articleLikeSet.indexOf(this.article.id) != -1) {
+            // 如果已点赞，则减少点赞数
             this.$set(this.article, "likeCount", this.article.likeCount - 1);
           } else {
+            // 如果未点赞，则增加点赞数
             this.$set(this.article, "likeCount", this.article.likeCount + 1);
           }
+
+          // 更新 Vuex 中的点赞状态
           this.$store.commit("articleLike", this.article.id);
         }
       });
@@ -1049,6 +1005,7 @@ export default {
         .replace(/[|]*\n/, "")
         .replace(/&npsp;/gi, "");
     },
+
     toggleReward() {
       this.showReward = !this.showReward;
       if (this.showReward) {
@@ -1125,17 +1082,6 @@ export default {
           }
         }
       });
-    },
-    copyArticleLink() {
-      navigator.clipboard
-        .writeText(this.articleHref)
-        .then(() => {
-          this.$toast({ type: "success", message: "链接已复制到剪贴板" });
-        })
-        .catch(err => {
-          console.error("复制失败:", err);
-          this.$toast({ type: "error", message: "复制失败" });
-        });
     },
     copyLink() {
       const el = document.createElement("textarea");
@@ -1358,33 +1304,6 @@ export default {
         .replace(/[^a-z0-9\u4e00-\u9fa5 -]/g, '') // 保留中文字符
         .replace(/\s+/g, '-')
         .replace(/-+/g, '-')
-    },
-
-    handleScroll() {
-      const scrollY = window.pageYOffset
-      this.fixed = scrollY > 230
-      
-      // 获取所有标题元素
-      const headings = document.querySelectorAll('.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6')
-      
-      // 找到当前可见的标题
-      for (let i = 0; i < headings.length; i++) {
-        const heading = headings[i]
-        const rect = heading.getBoundingClientRect()
-        
-        if (rect.top >= 0 && rect.top <= window.innerHeight * 0.5) {
-          // 更新目录高亮
-          const links = document.querySelectorAll('.toc-link')
-          links.forEach(link => {
-            if (link.getAttribute('href') === `#${heading.id}`) {
-              link.classList.add('active')
-            } else {
-              link.classList.remove('active')
-            }
-          })
-          break
-        }
-      }
     },
 
     isExpanded(item) {
@@ -1794,6 +1713,8 @@ export default {
         });
       }
     },
+
+    // 生成分享链接
     generateShareUrl() {
       const baseUrl = window.location.href;
       const userId = this.$store.state.userInfo ? this.$store.state.userInfo.id : '';
@@ -1844,6 +1765,7 @@ export default {
     updateShareUrl() {
       this.articleHref = this.generateShareUrl();
     },
+
     // 在 methods 中添加或修改生成QQ分享链接的方法
     generateQQShareUrl() {
       // 获取基础信息
@@ -1874,6 +1796,7 @@ export default {
         this.generateQQQRCode();
       });
     },
+
     // 添加一个生成QQ二维码的方法
     generateQQQRCode() {
       const container = document.getElementById('qq-qrcode-container');
@@ -1915,6 +1838,8 @@ export default {
         container.innerHTML = '<p style="color:red">生成二维码失败，请尝试直接复制链接</p>';
       }
     },
+
+    // 添加复制QQ分享链接的方法
     copyQQShareLink() {
       const shareUrl = this.generateQQShareUrl();
       navigator.clipboard.writeText(shareUrl)
@@ -1930,10 +1855,14 @@ export default {
           this.snackbar = true;
         });
     },
+
+    // 添加分享到小红书的方法
     shareToRedbook() {
       // 显示提示对话框
       this.showRedbookDialog = true;
     },
+
+    // 生成Facebook分享链接
     generateFacebookShareUrl() {
       const url = encodeURIComponent(this.articleHref);
       const title = encodeURIComponent(this.article.articleTitle || '');
@@ -1942,6 +1871,8 @@ export default {
       
       return `https://www.facebook.com/sharer/sharer.php?u=${url}&title=${title}&description=${description}&picture=${image}`;
     },
+
+    // 添加复制文章链接的方法
     copyArticleLink() {
       const link = this.articleHref;
       navigator.clipboard.writeText(link)
@@ -1957,6 +1888,8 @@ export default {
           this.snackbar = true;
         });
     },
+
+    // 添加分享到小红书的具体实现
     shareToRedbookApp() {
       // 检测是否为移动设备
       const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);

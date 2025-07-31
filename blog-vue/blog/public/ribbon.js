@@ -171,7 +171,11 @@
         window.addEventListener("scroll", this._onScroll);
         document.body.appendChild(this._canvas);
       } catch (e) {
-        console.warn("Canvas Context Error: " + e.toString());
+        /* eslint-disable no-console */
+        if (process && process.env && process.env.NODE_ENV !== 'production') {
+          console.warn("Canvas Context Error: " + e.toString());
+        }
+        /* eslint-enable no-console */
         return;
       }
       this._onDraw();

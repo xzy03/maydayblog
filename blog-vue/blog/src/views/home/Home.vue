@@ -1,11 +1,11 @@
 <template>
   <div>
-    <!-- banner -->
+    <!-- banner  -->
     <div class="home-banner">
       <div class="banner-container">
         <!-- 联系方式 -->
         <h1 class="blog-title animated zoomIn">
-          Auroral的个人博客
+          Mayond的个人博客
         </h1>
         <!-- 一言 -->
         <div class="blog-intro">
@@ -39,143 +39,153 @@
     </div>
     <!-- 主页文章 -->
     <v-row class="home-container">
-        <!-- 博主信息 -->
-        <v-col md="3" cols="12" class="d-md-block d-none">
-          <div class="blog-wrapper">
-            <v-card class="animated zoomIn blog-card mt-5">
-              <div class="author-wrapper site-author">
-                <!-- 博主头像 -->
-                <v-avatar size="110">
-                  <img class="author-avatar" :src="blogInfo.avatar" />
-                </v-avatar>
-                <div class="author-name">{{ blogInfo.nickname }}</div>
-                <div class="author-description">{{ blogInfo.intro }}</div>
+      <!-- 博主信息 -->
+      <v-col md="3" cols="12" class="d-md-block d-none">
+        <div class="blog-wrapper">
+          <v-card class="animated zoomIn blog-card mt-5">
+            <div class="author-wrapper site-author">
+              <!-- 博主头像 -->
+              <v-avatar size="110">
+                <img class="author-avatar" :src="blogInfo.avatar" />
+              </v-avatar>
+              <div class="author-name">{{ blogInfo.nickname }}</div>
+              <div class="author-description">{{ blogInfo.intro }}</div>
+            </div>
+            <!-- 博客信息 -->
+            <div class="site-state">
+              <div class="site-state-item">
+                <router-link to="/archives">
+                  <div class="state-num">{{ blogInfo.articleCount }}</div>
+                  <div class="state-name">日志</div>
+                </router-link>
               </div>
-              <!-- 博客信息 -->
-              <div class="site-state">
-                <div class="site-state-item">
-                  <router-link to="/archives">
-                    <div class="state-num">{{ blogInfo.articleCount }}</div>
-                    <div class="state-name">日志</div>
-                  </router-link>
-                </div>
-                <div class="site-state-item">
-                  <router-link to="/categories">
-                    <div class="state-num">{{ blogInfo.categoryCount }}</div>
-                    <div class="state-name">分类</div>
-                  </router-link>
-                </div>
-                <div class="site-state-item">
-                  <router-link to="/tags">
-                    <div class="state-num">{{ blogInfo.tagCount }}</div>
-                    <div class="state-name">标签</div>
-                  </router-link>
-                </div>
+              <div class="site-state-item">
+                <router-link to="/categories">
+                  <div class="state-num">{{ blogInfo.categoryCount }}</div>
+                  <div class="state-name">分类</div>
+                </router-link>
               </div>
-  
-              <!-- 收藏按钮 -->
-              <a class="collection-btn" @click="tip = true">
-                <v-icon color="#fff" size="18" class="mr-1">mdi-bookmark</v-icon>
-                加入书签
+              <div class="site-state-item">
+                <router-link to="/tags">
+                  <div class="state-num">{{ blogInfo.tagCount }}</div>
+                  <div class="state-name">标签</div>
+                </router-link>
+              </div>
+            </div>
+
+            <!-- 收藏按钮 -->
+            <a class="collection-btn" @click="tip = true">
+              <v-icon color="#fff" size="18" class="mr-1">mdi-bookmark</v-icon>
+              加入书签
+            </a>
+
+            <!-- 社交媒体链接 - 与Article保持一致 -->
+            <div class="site-social">
+              <a
+                href="https://github.com/xzy03"
+                target="_blank"
+                class="social-item"
+              >
+                <i class="iconfont icongithub"></i> GitHub
               </a>
-  
-              <!-- 社交媒体链接 - 与Article保持一致 -->
-              <div class="site-social">
-                <a
-                  href="https://github.com/Auroral0810"
-                  target="_blank"
-                  class="social-item"
-                >
-                  <i class="iconfont icongithub"></i> GitHub
-                </a>
-                <a href="mailto:15968588744@163.com" class="social-item">
-                  <i class="mdi mdi-email"></i> E-Mail
-                </a>
-                <a
-                  href="https://weibo.com/u/7862016551"
-                  target="_blank"
-                  class="social-item"
-                >
-                  <i class="iconfont iconweibo"></i> 微博
-                </a>
-                <a
-                  href="https://zhihu.com/people/Auroral-57-94"
-                  target="_blank"
-                  class="social-item"
-                >
-                  <i class="mdi mdi-earth"></i> 知乎
-                </a>
-                <a
-                  href="https://gitee.com/Luck_ff0810"
-                  target="_blank"
-                  class="social-item"
-                >
-                  <i class="iconfont icongitee-fill-round"></i> Gitee
-                </a>
-                <a
-                  href="https://music.163.com/#/user/home?id=563040726"
-                  target="_blank"
-                  class="social-item"
-                >
-                  <i class="mdi mdi-music"></i> 网易云
-                </a>
-              </div>
-  
-              <!-- CC许可证 -->
-              <div class="site-cc">
-                <a
-                  href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-                  target="_blank"
-                  class="license-icon"
-                >
-                  <img
-                    src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"
-                    alt="CC BY-NC-SA 4.0"
-                  />
-                </a>
-                <!-- RSS订阅图标 -->
-                <a
-                  href="/api/rss"
-                  target="_blank"
-                  class="rss-icon"
-                  title="RSS订阅"
-                >
-                  <img
-                    src="@/assets/img/rss.png"
-                    alt="RSS Feed"
-                    style="height: 31px;"
-                  />
-                </a>
-              </div>
-            </v-card>
-            <!-- 网站信息 -->
-            <v-card class="blog-card animated zoomIn mt-5">
-              <div class="announcement-header">
-                <v-icon color="#49b1f5" size="20">mdi-bullhorn</v-icon>
-                <span class="announcement-title">公告板</span>
-              </div>
-              
-              <div class="announcement-content">
-                <div class="modern-timeline">
-                  <div class="timeline-item" v-for="(notice, index) in blogInfo.notices" :key="notice.id">
-                    <div class="timeline-dot" :class="{'secondary': index > 0}">
-                      <v-icon style="color: #ffffff !important;" size="14">
-                        {{ index === 0 ? 'mdi-bell' : 'mdi-information-outline' }}
-                      </v-icon>
+              <a href="mailto:17364563687@163.com" class="social-item">
+                <i class="mdi mdi-email"></i> E-Mail
+              </a>
+              <a
+                href="https://weibo.com/u/7808692733"
+                target="_blank"
+                class="social-item"
+              >
+                <i class="iconfont iconweibo"></i> 微博
+              </a>
+              <a
+                href="https://www.zhihu.com/people/7-37-11-70"
+                target="_blank"
+                class="social-item"
+              >
+                <i class="mdi mdi-earth"></i> 知乎
+              </a>
+              <a
+                href="https://gitee.com/Not_Found_404_114514"
+                target="_blank"
+                class="social-item"
+              >
+                <i class="iconfont icongitee-fill-round"></i> Gitee
+              </a>
+              <a
+                href="https://music.163.com/#/my/m/music/playlist?id=7663433696"
+                target="_blank"
+                class="social-item"
+              >
+                <i class="mdi mdi-music"></i> 网易云
+              </a>
+            </div>
+
+            <!-- CC许可证 -->
+            <div class="site-cc">
+              <a
+                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                target="_blank"
+                class="license-icon"
+              >
+                <img
+                  src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"
+                  alt="CC BY-NC-SA 4.0"
+                />
+              </a>
+              <!-- RSS订阅图标 -->
+              <a
+                href="/api/rss"
+                target="_blank"
+                class="rss-icon"
+                title="RSS订阅"
+              >
+                <img
+                  src="@/assets/img/rss.png"
+                  alt="RSS Feed"
+                  style="height: 31px;"
+                />
+              </a>
+            </div>
+          </v-card>
+          <!-- 网站信息 -->
+          <v-card class="blog-card animated zoomIn mt-5">
+            <div class="announcement-header">
+              <v-icon color="#49b1f5" size="20">mdi-bullhorn</v-icon>
+              <span class="announcement-title">公告板</span>
+            </div>
+            <!-- 公告 -->
+            <div class="announcement-content">
+              <!-- 时间线外壳容器，包含所有公告项 -->
+              <div class="modern-timeline">
+                <!-- 使用 v-for 遍历 blogInfo.notices 数组中的每条公告 -->
+                <!-- notice 表示当前公告对象，index 表示下标，:key 绑定每项的唯一 id -->
+                <div class="timeline-item" v-for="(notice, index) in blogInfo.notices" :key="notice.id">
+                  <!-- 时间线小圆点，若 index > 0 添加类名 secondary，实现样式变化 -->
+                  <div class="timeline-dot" :class="{'secondary': index > 0}">
+                    <!-- 圆点图标，第一项显示“铃铛”图标，其他显示“信息”图标 -->
+                    <v-icon style="color: #ffffff !important;" size="14">
+                      {{ index === 0 ? 'mdi-bell' : 'mdi-information-outline' }}
+                    </v-icon>
+                  </div>
+                  <!-- 公告内容卡片 -->
+                  <div class="timeline-card">
+                    <!-- 公告时间部分，显示图标和格式化后的时间 -->
+                    <div class="timeline-time">
+                      <v-icon size="12">mdi-clock-outline</v-icon>
+                      {{ formatDate(notice.createTime) }}
                     </div>
-                    <div class="timeline-card">
-                      <div class="timeline-time">
-                        <v-icon size="12">mdi-clock-outline</v-icon>
-                        {{ formatDate(notice.createTime) }}
-                      </div>
-                      <div class="timeline-content markdown-body" v-html="renderMarkdown(notice.content)"></div>
-                    </div>
+                    <!-- 公告正文，使用 renderMarkdown() 方法渲染 Markdown 内容为 HTML -->
+                    <!-- 使用 v-html 直接插入 HTML 内容 -->
+                    <div class="timeline-content markdown-body" v-html="renderMarkdown(notice.content)"></div>
                   </div>
                 </div>
               </div>
-            </v-card>
-          </div>
-        </v-col>
+            </div>
+          </v-card>
+        </div>
+      </v-col>
+      <!-- 文章列表 -->
       <v-col md="9" cols="12">
         <v-card
           class="animated zoomIn article-card"
@@ -196,11 +206,13 @@
           </div>
           <!-- 文章信息 -->
           <div class="article-wrapper">
+            <!-- 文章标题 -->
             <div style="line-height:1.4">
               <router-link :to="'/articles/' + item.id">
                 {{ item.articleTitle }}
               </router-link>
             </div>
+            <!-- 文章信息 -->
             <div class="article-info">
               <!-- 是否置顶 -->
               <span v-if="item.isTop == 1">
@@ -259,9 +271,9 @@ export default {
     InfiniteLoading
   },
   created() {
-    this.init();
-    this.getBlogInfo();
-    this.timer = setInterval(this.runTime, 1000);
+    this.init();                                         //初始化
+    this.getBlogInfo();                                  //获取博客信息
+    this.timer = setInterval(this.runTime, 1000); //启动计时器，显示时间
   },
   data: function() {
     return {
@@ -319,6 +331,7 @@ export default {
           this.initTyped(randomQuote);
         });
     },
+    //fn和hooks参数可以省略，input参数为打印的参数，fn参数为打印完成后的回调函数，hooks参数为打印过程中的回调函数
     initTyped(input, fn, hooks) {
       const obj = this.obj;
       // eslint-disable-next-line no-unused-vars
@@ -335,10 +348,10 @@ export default {
         if (data.flag) {
           // 确保 notices 存在，如果不存在则设置为空数组
           this.blogInfo = {
-            ...data.data,
-            notices: data.data.notices || []
+            ...data.data,//浅拷贝所有信息到blogInfo
+            notices: data.data.notices || []//确保 notices 存在，如果不存在则设置为空数组
           };
-          this.$store.commit("checkBlogInfo", this.blogInfo);
+          this.$store.commit("checkBlogInfo", this.blogInfo);//调用vuexx的checkBlogInfo方法,设置全局变量
           
           // 调试输出
           
@@ -366,7 +379,7 @@ export default {
                 .render(item.articleContent)
                 .replace(/<\/?[^>]*>/g, "")
                 .replace(/[|]*\n/, "")
-                .replace(/&npsp;/gi, "");
+                .replace(/&nbsp;/gi, "");
             });
             this.articleList.push(...data.data);
             this.current++;

@@ -5,6 +5,12 @@ import loading from './modules/loading';
 
 Vue.use(Vuex);
 
+/*
+state是全局状态树，包含应用的所有状态，modules是模块化的状态管理，每个模块可以有自己的state、mutations、actions等。
+mutations是同步操作，用于修改state的值，actions是异步操作，可以调用mutations来修改state。
+plugins是插件，用于持久化状态等功能，strict模式用于在开发环境中启用严格模式，防止直接修改state。
+*/
+
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',  // 只在开发环境启用严格模式
   state: {

@@ -27,7 +27,6 @@ import "highlight.js/styles/atom-one-dark.css";
 import VueImageSwipe from "vue-image-swipe";
 import "vue-image-swipe/dist/vue-image-swipe.css";
 import Toast from "./components/toast/index";
-import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import VueAplayer from "vue-aplayer";
 import "@fortawesome/fontawesome-free/css/all.css";
@@ -58,22 +57,6 @@ Vue.filter("num", function(value) {
     return (value / 1000).toFixed(1) + "k";
   }
   return value;
-});
-
-router.beforeEach((to, from, next) => {
-  NProgress.start();
-  if (to.meta.title) {
-    document.title = to.meta.title;
-  }
-  next();
-});
-
-router.afterEach(() => {
-  window.scrollTo({
-    top: 0,
-    behavior: "instant"
-  });
-  NProgress.done();
 });
 
 axios.interceptors.response.use(
